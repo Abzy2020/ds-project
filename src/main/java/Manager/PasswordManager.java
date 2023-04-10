@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import Authentication.Email;
+import Authentication.Password;
+import Authentication.User;
+
+import Generators.EmailGenerator;
+import Generators.PasswordGenerator;
+import Generators.UsernameGenerator;
 
 public class PasswordManager {
 
