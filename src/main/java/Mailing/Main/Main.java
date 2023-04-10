@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class PasswordManager {
 
     public static void main(String[] args) {
+       // See if this works for you
         Scanner scanner = new Scanner(System.in);
         HashMap<String, User> userMap = new HashMap<>();
         HashSet<String> usernameSet = new HashSet<>();
