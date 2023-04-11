@@ -12,7 +12,7 @@ public class User {
     }
 
     public Object getPassword() {
-        return password;
+        return password.toString();
     }
 
     public String getEmail() {
