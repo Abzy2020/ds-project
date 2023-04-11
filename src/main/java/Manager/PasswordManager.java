@@ -82,6 +82,7 @@ public class PasswordManager {
                     continue;
                 }
                 usernameSet.add(username);
+                System.out.println("Your new username is: " + username);
 
                 // Email
                 System.out.println("Do you want to use a custom email or generate a random one?");
@@ -108,6 +109,7 @@ public class PasswordManager {
                     continue;
                 }
                 emailSet.add(email);
+                System.out.println("Your new email is: " + email);
 
                 // Password
                 System.out.println("Do you want to use a custom password or generate a random one?");
@@ -126,6 +128,7 @@ public class PasswordManager {
                     System.out.println("Invalid choice. Returning to main menu.");
                     continue;
                 }
+                System.out.println("Your new password is: " + password);
 
                 User newUser = new User(username, new Password(password), new Email(email));
                 userMap.put(username, newUser);
@@ -145,6 +148,7 @@ public class PasswordManager {
                     System.out.println("Username not found.");
                 }
 
+
             } else if (choice == 4) {
                 // Forgot username
                 System.out.print("Enter email: ");
@@ -163,6 +167,7 @@ public class PasswordManager {
                 } else {
                     System.out.println("Email not found.");
                 }
+
 
             } else if (choice == 5) {
                 break;

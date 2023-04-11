@@ -12,4 +12,7 @@ public class Password {
     }
 
     // getters and setters
+    public String getPassword() {
+        return password;
+    }
 }
