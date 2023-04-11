@@ -11,5 +11,19 @@ public class User {
         this.email = email;
     }
 
+    public Object getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email.toString();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    
+
     // getters and setters
 }
