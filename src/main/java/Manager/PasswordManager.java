@@ -42,7 +42,7 @@ public class PasswordManager {
                 String password = scanner.nextLine();
 
                 User user = userMap.get(username);
-                if (user != null && user.getPassword().getPassword().equals(password)) {
+                if (user != null && user.getPassword().equals(password)) {
                     System.out.println("Logged in successfully!");
                     // Add any functionality you want to perform after successful login
                 } else {
@@ -135,7 +135,7 @@ public class PasswordManager {
                 User user = userMap.get(username);
 
                 if (user != null) {
-                    System.out.println("Your email address is: " + user.getEmail().getEmail());
+                    System.out.println("Your email address is: " + user.getEmail());
                 } else {
                     System.out.println("Username not found.");
                 }
@@ -147,7 +147,7 @@ public class PasswordManager {
                 String username = null;
 
                 for (User user : userMap.values()) {
-                    if (user.getEmail().getEmail().equals(email)) {
+                    if (user.getEmail().equals(email)) {
                         username = user.getUsername();
                         break;
                     }
@@ -170,7 +170,7 @@ public class PasswordManager {
                 if (adminPassword.equals("King")) {
                     System.out.println("Stored credentials:");
                     for (User user : userMap.values()) {
-                        System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword().getPassword() + ", Email: " + user.getEmail().getEmail());
+                        System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword() + ", Email: " + user.getEmail());
                     }
                 } else {
                     System.out.println("Incorrect admin password.");
