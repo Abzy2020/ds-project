@@ -42,7 +42,7 @@ public class PasswordManager {
                 String password = scanner.nextLine();
 
                 User user = userMap.get(username);
-                if (user != null && user.getPassword() == password) {
+                if (user != null && user.getPassword().equals(password)) {
                     System.out.println("Logged in successfully!");
                     // Add any functionality you want to perform after successful login
                 } else {
@@ -68,11 +68,6 @@ public class PasswordManager {
                         System.out.println("Username already exists. Please choose a different username.");
                         continue;
                     }
-
-                    do {
-                        username = UsernameGenerator.generateUsername(username);
-                    } while (usernameSet.contains(username));
-
                 } else if (usernameChoice == 2) {
                     do {
                         username = UsernameGenerator.generateUsername();
@@ -148,6 +143,7 @@ public class PasswordManager {
                     System.out.println("Username not found.");
                 }
 
+
             } else if (choice == 4) {
                 // Forgot username
                 System.out.print("Enter email: ");
@@ -166,6 +162,7 @@ public class PasswordManager {
                 } else {
                     System.out.println("Email not found.");
                 }
+
 
             } else if (choice == 5) {
                 break;

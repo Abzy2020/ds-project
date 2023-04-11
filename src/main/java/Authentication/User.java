@@ -11,6 +11,20 @@ public class User {
         this.email = email;
     }
 
+    public Object getPassword() {
+        return password.toString();
+    }
+
+    public String getEmail() {
+        return email.toString();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    
+
     // getters and setters
     public String getUserInfo(){
         return "Username: " + username + "\nPassword: " + password.getPassword() + "\nEmail: " + email.getEmail();
