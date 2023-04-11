@@ -1,5 +1,8 @@
 package Manager;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -29,7 +32,8 @@ public class PasswordManager {
             System.out.println("3. Forgot password");
             System.out.println("4. Forgot username");
             System.out.println("5. Quit");
-            System.out.println("6. View all stored credentials (Admin only)");
+            System.out.println("6. Send credentials to files");
+            System.out.println("7. View all stored credentials (Admin only)");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
@@ -41,6 +45,7 @@ public class PasswordManager {
                 System.out.print("Enter password: ");
                 String password = scanner.nextLine();
 
+                
                 User user = userMap.get(username);
                 if (user != null && user.getPassword().equals(password)) {
                     System.out.println("Logged in successfully!");
@@ -162,7 +167,32 @@ public class PasswordManager {
             } else if (choice == 5) {
                 break;
 
-            } else if (choice == 6) {
+            }  else if(choice == 6){
+                String username = null;
+                Object password = null;
+                String email = null;
+               
+                for (User user : userMap.values()) {
+                   username = user.getUsername();
+                   password = user.getPassword();
+                   email = user.getEmail();
+                }
+
+                
+                if (username != null && password != null && email != null) {
+                    try {
+                        FileWriter writer = new FileWriter(username + ".txt");
+                        writer.write("Username: " + username + "\n");
+                        writer.write("Password: " + password.toString() + "\n");
+                        writer.write("Email: " + email + "\n");
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("Credentials sent to files");
+            }
+            else if (choice == 7) {
                 // View all stored credentials (Admin only)
                 System.out.print("Enter admin password: ");
                 String adminPassword = scanner.nextLine();
