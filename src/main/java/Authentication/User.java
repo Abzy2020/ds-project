@@ -12,4 +12,19 @@ public class User {
     }
 
     // getters and setters
+    public String getUserInfo(){
+        return "Username: " + username + "\nPassword: " + password.getPassword() + "\nEmail: " + email.getEmail();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password.getPassword();
+    }
+
+    public String getEmail() {
+        return email.getEmail();
+    }
 }

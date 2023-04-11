@@ -8,4 +8,7 @@ public class Email {
     }
 
     // getters and setters
+    public String getEmail() {
+        return email;
+    }
 }

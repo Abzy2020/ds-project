@@ -15,92 +15,175 @@ import Generators.UsernameGenerator;
 public class PasswordManager {
 
     public static void main(String[] args) {
-       // See if this works for you
         Scanner scanner = new Scanner(System.in);
         HashMap<String, User> userMap = new HashMap<>();
         HashSet<String> usernameSet = new HashSet<>();
         HashSet<String> emailSet = new HashSet<>();
 
-        // Your interaction logic with the user, for example:
+        System.out.println("Welcome to OnePass!");
+
         while (true) {
-            System.out.println("Choose an option:");
-            System.out.println("1. Generate random credentials");
-            System.out.println("2. Create custom password");
-            System.out.println("3. View stored credentials");
-            System.out.println("4. Update stored credentials");
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Log in");
+            System.out.println("2. Sign up");
+            System.out.println("3. Forgot password");
+            System.out.println("4. Forgot username");
             System.out.println("5. Quit");
+            System.out.println("6. View all stored credentials (Admin only)");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
 
             if (choice == 1) {
-                // Generate random username, password, and email
-                // ... (same as before, but with added checks for uniqueness)
-
-                String username = "";
-                do {
-                    username = UsernameGenerator.generateUsername();
-                } while (usernameSet.contains(username));
-                usernameSet.add(username);
-
-                String email = "";
-                do {
-                    email = EmailGenerator.generateEmail(username);
-                } while (emailSet.contains(email));
-                emailSet.add(email);
-
-                String password = PasswordGenerator.generatePassword();
-                User user = new User(username, new Password(password), new Email(email));
-                userMap.put(username, user);
-                System.out.println("Random credentials generated and saved.");
-            } else if (choice == 2) {
-                // Let the user create their own password
-                // ... (same as before, but with added checks for uniqueness)
-
+                // Log in
                 System.out.print("Enter username: ");
                 String username = scanner.nextLine();
+                System.out.print("Enter password: ");
+                String password = scanner.nextLine();
 
-                if (usernameSet.contains(username)) {
-                    System.out.println("Username already exists. Please choose a different username.");
+                User user = userMap.get(username);
+                if (user != null && user.getPassword() == password) {
+                    System.out.println("Logged in successfully!");
+                    // Add any functionality you want to perform after successful login
+                } else {
+                    System.out.println("Invalid username or password.");
+                }
+
+            } else if (choice == 2) {
+                // Sign up
+
+                // Username
+                System.out.println("Do you want to use a custom username or generate a random one?");
+                System.out.println("1. Custom username");
+                System.out.println("2. Random username");
+                String username;
+                int usernameChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+
+                if (usernameChoice == 1) {
+                    System.out.print("Enter a new username: ");
+                    username = scanner.nextLine();
+
+                    if (usernameSet.contains(username)) {
+                        System.out.println("Username already exists. Please choose a different username.");
+                        continue;
+                    }
+
+                    do {
+                        username = UsernameGenerator.generateUsername(username);
+                    } while (usernameSet.contains(username));
+
+                } else if (usernameChoice == 2) {
+                    do {
+                        username = UsernameGenerator.generateUsername();
+                    } while (usernameSet.contains(username));
+                } else {
+                    System.out.println("Invalid choice. Returning to main menu.");
                     continue;
                 }
                 usernameSet.add(username);
+                System.out.println("Your new username is: " + username);
 
-                System.out.print("Enter email: ");
-                String email = scanner.nextLine();
+                // Email
+                System.out.println("Do you want to use a custom email or generate a random one?");
+                System.out.println("1. Custom email");
+                System.out.println("2. Random email");
+                String email;
+                int emailChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
 
-                if (emailSet.contains(email)) {
-                    System.out.println("Email already exists. Please choose a different email.");
+                if (emailChoice == 1) {
+                    System.out.print("Enter a new email: ");
+                    email = scanner.nextLine();
+
+                    if (emailSet.contains(email)) {
+                        System.out.println("Email already exists. Please choose a different email.");
+                        continue;
+                    }
+                } else if (emailChoice == 2) {
+                    do {
+                        email = EmailGenerator.generateEmail(username);
+                    } while (emailSet.contains(email));
+                } else {
+                    System.out.println("Invalid choice. Returning to main menu.");
                     continue;
                 }
                 emailSet.add(email);
+                System.out.println("Your new email is: " + email);
 
-                // ... (rest of the code)
+                // Password
+                System.out.println("Do you want to use a custom password or generate a random one?");
+                System.out.println("1. Custom password");
+                System.out.println("2. Random password");
+                String password;
+                int passwordChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+
+                if (passwordChoice == 1) {
+                    System.out.print("Enter a new password: ");
+                    password = scanner.nextLine();
+                } else if (passwordChoice == 2) {
+                    password = PasswordGenerator.generatePassword();
+                } else {
+                    System.out.println("Invalid choice. Returning to main menu.");
+                    continue;
+                }
+                System.out.println("Your new password is: " + password);
+
+                User newUser = new User(username, new Password(password), new Email(email));
+                userMap.put(username, newUser);
+
+                System.out.println("Account created successfully! You can now log in with your new credentials.");
+                System.out.println("Make sure to remember your password or else you may have to restart the process.");
 
             } else if (choice == 3) {
-                // View stored credentials
+                // Forgot password
                 System.out.print("Enter username: ");
                 String username = scanner.nextLine();
                 User user = userMap.get(username);
 
                 if (user != null) {
-                    // ... (same as before)
+                    System.out.println("Your email address is: " + user.getEmail());
                 } else {
-                    System.out.println("Credentials for the given username not found.");
+                    System.out.println("Username not found.");
                 }
+
             } else if (choice == 4) {
-                // Update stored credentials
-                System.out.print("Enter username: ");
-                String username = scanner.nextLine();
-                User user = userMap.get(username);
+                // Forgot username
+                System.out.print("Enter email: ");
+                String email = scanner.nextLine();
+                String username = null;
 
-                if (user != null) {
-                    // ... (same as before)
-                } else {
-                    System.out.println("Credentials for the given username not found.");
+                for (User user : userMap.values()) {
+                    if (user.getEmail().equals(email)) {
+                        username = user.getUsername();
+                        break;
+                    }
                 }
+
+                if (username != null) {
+                    System.out.println("Your username is: " + username);
+                } else {
+                    System.out.println("Email not found.");
+                }
+
             } else if (choice == 5) {
                 break;
+
+            } else if (choice == 6) {
+                // View all stored credentials (Admin only)
+                System.out.print("Enter admin password: ");
+                String adminPassword = scanner.nextLine();
+
+                if (adminPassword.equals("King")) {
+                    System.out.println("Stored credentials:");
+                    for (User user : userMap.values()) {
+                        System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword() + ", Email: " + user.getEmail());
+                    }
+                } else {
+                    System.out.println("Incorrect admin password.");
+                }
+
             } else {
                 System.out.println("Invalid choice. Please try again.");
             }
