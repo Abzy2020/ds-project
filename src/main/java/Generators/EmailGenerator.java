@@ -3,7 +3,7 @@ package Generators;
 import java.util.Random;
 
 public class EmailGenerator {
-    private static final String[] DOMAINS = {"example.com", "mail.com", "inbox.com", "email.net"};
+    private static final String[] DOMAINS = {"example.com", "gmail.com", "inbox.com", "email.net"};
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int LOCAL_PART_LENGTH = 10;
 

@@ -10,7 +10,7 @@ import java.util.Scanner;
 import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
-
+import Authentication.UserValidator;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
@@ -44,7 +44,6 @@ public class PasswordManager {
                 String username = scanner.nextLine();
                 System.out.print("Enter password: ");
                 String password = scanner.nextLine();
-
                 
                 User user = userMap.get(username);
                 if (user != null && user.getPassword().equals(password)) {
@@ -131,8 +130,11 @@ public class PasswordManager {
                 System.out.println("Your new password is: " + password);
 
                 User newUser = new User(username, new Password(password), new Email(email));
+                UserValidator validator = new UserValidator(newUser);
+                validator.setPassStrength();
                 userMap.put(username, newUser);
 
+                System.out.println("User Password Strength: " + newUser.getUserPassword().getStrength());
                 System.out.println("Account created successfully! You can now log in with your new credentials.");
                 System.out.println("Make sure to remember your password or else you may have to restart the process.");
 
@@ -147,7 +149,6 @@ public class PasswordManager {
                 } else {
                     System.out.println("Username not found.");
                 }
-
 
             } else if (choice == 4) {
                 // Forgot username
@@ -168,27 +169,26 @@ public class PasswordManager {
                     System.out.println("Email not found.");
                 }
 
-
             } else if (choice == 5) {
                 break;
 
             }  else if(choice == 6){
                 String username = null;
-                Object password = null;
+                Password password = null;
                 String email = null;
                
                 for (User user : userMap.values()) {
                    username = user.getUsername();
-                   password = user.getPassword();
+                   password = user.getUserPassword();
                    email = user.getEmail();
                 }
 
-                
                 if (username != null && password != null && email != null) {
                     try {
                         FileWriter writer = new FileWriter(username + ".txt");
                         writer.write("Username: " + username + "\n");
                         writer.write("Password: " + password.toString() + "\n");
+                        writer.write("password Strength: " + password.getStrength() + "\n");
                         writer.write("Email: " + email + "\n");
                         writer.close();
                     } catch (IOException e) {
@@ -227,7 +227,6 @@ public class PasswordManager {
                 System.out.println("Invalid choice. Please try again.");
             }
         }
-
         scanner.close();
     }
 }

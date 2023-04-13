@@ -1,6 +1,7 @@
 package Authentication;
 
 public class User {
+
     private String username;
     private Password password;
     private Email email;
@@ -22,6 +23,10 @@ public class User {
 
     public String getPassword() {
         return password.getPassword();
+    }
+
+    public Password getUserPassword(){
+        return password;
     }
 
     public String getEmail() {
