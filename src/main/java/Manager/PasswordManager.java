@@ -196,6 +196,18 @@ public class PasswordManager {
                     }
                 }
                 System.out.println("Credentials sent to files");
+
+                System.out.println("If you would like to delete your file, please enter your username");
+                String delete = scanner.nextLine();
+                File file = new File(delete + ".txt");
+                if(file.delete()){
+                    System.out.println("File deleted successfully");
+                }else{
+                    System.out.println("Failed to delete the file");
+                }
+                
+                
+
             }
             else if (choice == 7) {
                 // View all stored credentials (Admin only)
