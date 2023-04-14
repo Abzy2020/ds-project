@@ -6,18 +6,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
 
 import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
-import Authentication.UserValidator;
+import Files.FileManager;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
 
 public class PasswordManager {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SecurityException, IOException {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, User> userMap = new HashMap<>();
         HashSet<String> usernameSet = new HashSet<>();
@@ -32,7 +33,7 @@ public class PasswordManager {
             System.out.println("3. Forgot password");
             System.out.println("4. Forgot username");
             System.out.println("5. Quit");
-            System.out.println("6. Send credentials to files");
+            System.out.println("6. Send credentials to files or delete them");
             System.out.println("7. View all stored credentials (Admin only)");
 
             int choice = scanner.nextInt();
@@ -44,6 +45,7 @@ public class PasswordManager {
                 String username = scanner.nextLine();
                 System.out.print("Enter password: ");
                 String password = scanner.nextLine();
+
                 
                 User user = userMap.get(username);
                 if (user != null && user.getPassword().equals(password)) {
@@ -130,11 +132,8 @@ public class PasswordManager {
                 System.out.println("Your new password is: " + password);
 
                 User newUser = new User(username, new Password(password), new Email(email));
-                UserValidator validator = new UserValidator(newUser);
-                validator.setPassStrength();
                 userMap.put(username, newUser);
 
-                System.out.println("User Password Strength: " + newUser.getUserPassword().getStrength());
                 System.out.println("Account created successfully! You can now log in with your new credentials.");
                 System.out.println("Make sure to remember your password or else you may have to restart the process.");
 
@@ -149,6 +148,7 @@ public class PasswordManager {
                 } else {
                     System.out.println("Username not found.");
                 }
+
 
             } else if (choice == 4) {
                 // Forgot username
@@ -169,26 +169,51 @@ public class PasswordManager {
                     System.out.println("Email not found.");
                 }
 
+
             } else if (choice == 5) {
                 break;
 
             }  else if(choice == 6){
-                String username = null;
-                Password password = null;
+              System.out.println("If you would like to send your credentials to a file, please 1");
+                System.out.println("If you would like to delete your credentials from the file, please 2");
+                int choice2 = scanner.nextInt();
+                scanner.nextLine();
+                if(choice2 == 1){
+                    FileManager.writeCredentialsToFile(userMap);
+                }
+                else if(choice2 == 2){
+                    System.out.println("Please enter your username and password to delete your credentials");
+                    String delete = scanner.nextLine();
+                    String delete2 = scanner.nextLine();
+                    FileManager.deleteCredentialsByUsernameAndPassword(delete, delete2);;
+                }
+                else{
+                    System.out.println("Invalid choice");
+                }
+
+              
+         
+                
+
+                
+                
+                
+                /*  String username = null;
+                Object password = null;
                 String email = null;
                
                 for (User user : userMap.values()) {
                    username = user.getUsername();
-                   password = user.getUserPassword();
+                   password = user.getPassword();
                    email = user.getEmail();
                 }
 
+                
                 if (username != null && password != null && email != null) {
                     try {
                         FileWriter writer = new FileWriter(username + ".txt");
                         writer.write("Username: " + username + "\n");
                         writer.write("Password: " + password.toString() + "\n");
-                        writer.write("password Strength: " + password.getStrength() + "\n");
                         writer.write("Email: " + email + "\n");
                         writer.close();
                     } catch (IOException e) {
@@ -205,8 +230,8 @@ public class PasswordManager {
                 }else{
                     System.out.println("Failed to delete the file");
                 }
-                
-                
+
+                */
 
             }
             else if (choice == 7) {
@@ -232,6 +257,7 @@ public class PasswordManager {
                 System.out.println("Invalid choice. Please try again.");
             }
         }
+
         scanner.close();
     }
 }
