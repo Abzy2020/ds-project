@@ -14,6 +14,7 @@ import Authentication.UserValidator;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
+import Mailing.MailingService;
 
 public class PasswordManager {
 
@@ -140,14 +141,18 @@ public class PasswordManager {
 
             } else if (choice == 3) {
                 // Forgot password
+                MailingService mailing;
                 System.out.print("Enter username: ");
                 String username = scanner.nextLine();
                 User user = userMap.get(username);
+                String msg = "Thank you for using OnePass Password Recovery.\nYour Password is: ";
 
                 if (user != null) {
-                    System.out.println("Your email address is: " + user.getEmail());
+                    System.out.println("Sending Password to: " + user.getEmail());
+                    mailing = new MailingService(user.getEmail(), user.getPassword(), msg + user.getPassword());
+                    mailing.sendMail();
                 } else {
-                    System.out.println("Username not found.");
+                    System.out.println("Username not found or email does not exist.");
                 }
 
             } else if (choice == 4) {
