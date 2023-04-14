@@ -26,7 +26,7 @@ public class UserValidator{
 
 
     public class Node {
-        char value; // for letters of password
+        char value; // for characters of password
         Node left;
         Node right;
 
@@ -92,7 +92,7 @@ public class UserValidator{
         return score;
     }
 
-    // returns strength of password
+    // sets strength of password
     public void setPassStrength(){
         int score = 0;
         // strips password of duplicate values
