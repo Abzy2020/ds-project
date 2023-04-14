@@ -33,7 +33,7 @@ public class PasswordManager {
             System.out.println("3. Forgot password");
             System.out.println("4. Forgot username");
             System.out.println("5. Quit");
-            System.out.println("6. Send credentials to files");
+            System.out.println("6. Send credentials to files or delete them");
             System.out.println("7. View all stored credentials (Admin only)");
 
             int choice = scanner.nextInt();
@@ -174,9 +174,27 @@ public class PasswordManager {
                 break;
 
             }  else if(choice == 6){
-              //  FileManager.writeCredentialsToFile(userMap);
+              System.out.println("If you would like to send your credentials to a file, please 1");
+                System.out.println("If you would like to delete your credentials from the file, please 2");
+                int choice2 = scanner.nextInt();
+                scanner.nextLine();
+                if(choice2 == 1){
+                    FileManager.writeCredentialsToFile(userMap);
+                }
+                else if(choice2 == 2){
+                    System.out.println("Please enter your username and password to delete your credentials");
+                    String delete = scanner.nextLine();
+                    String delete2 = scanner.nextLine();
+                    FileManager.deleteCredentialsByUsernameAndPassword(delete, delete2);;
+                }
+                else{
+                    System.out.println("Invalid choice");
+                }
 
+              
+         
                 
+
                 
                 
                 
