@@ -99,8 +99,7 @@ public class FileManager {
     
             // Add the username to the set of deleted users
             deletedUsers.add(username);
-            System.out.println(deletedUsers.toString());
-    
+            
             System.out.println("Credentials deleted for username " + username);
     
         } catch (IOException e) {
