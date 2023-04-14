@@ -7,12 +7,14 @@ import java.util.Map;
 
 
 import Authentication.User;
+import TimeComplexity.TimeComplexity;
 
 public class FileHandler {
     // ... (other methods)
 
    
     public static void writeCredentialsToFile(Map<String, User> userMap, String filename) {
+       TimeComplexity.startFunction("writeCredentialsToFile");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
             for (User user : userMap.values()) {
                 bw.write("Username: " + user.getUsername() + "\n");
@@ -23,6 +25,7 @@ public class FileHandler {
         } catch (IOException e) {
             System.err.println("Error writing credentials to file: " + e.getMessage());
         }
+        TimeComplexity.endFunction();
     }
     
     public static void searchCredentialsByUsername(String username, String filename) {
