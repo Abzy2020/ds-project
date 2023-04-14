@@ -213,11 +213,16 @@ public class PasswordManager {
                 // View all stored credentials (Admin only)
                 System.out.print("Enter admin password: ");
                 String adminPassword = scanner.nextLine();
+                System.out.println("-----------------------------------------------------------------------------------------------------------------");
 
                 if (adminPassword.equals("King")) {
-                    System.out.println("Stored credentials:");
+                    System.out.println("|Stored Credentials:                                                                                            |");
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    System.out.println(String.format("| %-25s | %-35s | %-25s | %-15s |", "Username", "Email", "Password", "Strength"));
+                    System.out.println("-----------------------------------------------------------------------------------------------------------------");
                     for (User user : userMap.values()) {
-                        System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword() + ", Email: " + user.getEmail());
+                        System.out.println(String.format("| %-25s | %-35s | %-25s | %-15s |", user.getUsername(), user.getEmail(), user.getPassword(), user.getUserPassword().getStrength()));
+                System.out.println("-----------------------------------------------------------------------------------------------------------------");
                     }
                 } else {
                     System.out.println("Incorrect admin password.");
