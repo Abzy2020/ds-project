@@ -9,28 +9,34 @@ import java.util.Map;
 
 
 import Authentication.User;
+import TimeComplexity.TimeComplexity;
 
 public class FileManager {
 
     public static void writeCredentialsToFile(Map<String, User> userMap) {
+        TimeComplexity.startFunction("writeCredentialsToFile");
+        // Read the existing credentials from the file
         try (BufferedReader br = new BufferedReader(new FileReader("credentials.txt"))) {
             Set<String> existingUsernames = new HashSet<>();
             String line;
+            // Add the existing usernames to the set
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("Username: ")) {
                     String username = line.substring("Username: ".length()).trim();
                     existingUsernames.add(username);
                 }
             }
-            
+            // Write the new credentials to the file
             try (BufferedWriter bw = new BufferedWriter(new FileWriter("credentials.txt",true))) {
                 for (User user : userMap.values()) {
                     String username = user.getUsername();
+                    // Check if the user already exists
                     if (!existingUsernames.contains(username)) { // check if user has been deleted
                         if (existingUsernames.contains(username)) {
                             System.out.println("Credentials already exist for username " + username);
                             continue;
                         }
+                       // Write the credentials to the file
                         bw.write("Username: " + username + "\n");
                         bw.write("Password: " + user.getPassword().toString() + "\n");
                         bw.write("Email: " + user.getEmail() + "\n\n");
@@ -44,6 +50,7 @@ public class FileManager {
         } catch (IOException e) {
             System.err.println("Error reading credentials from file: " + e.getMessage());
         }
+        TimeComplexity.endFunction();
     }
     
     public static void deleteCredentialsByUsernameAndPassword(String username, String password) {
@@ -99,8 +106,7 @@ public class FileManager {
     
             // Add the username to the set of deleted users
             deletedUsers.add(username);
-            System.out.println(deletedUsers.toString());
-    
+            
             System.out.println("Credentials deleted for username " + username);
     
         } catch (IOException e) {

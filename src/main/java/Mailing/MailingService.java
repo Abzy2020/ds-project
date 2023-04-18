@@ -10,24 +10,23 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
 
-class MailingService {
+public class MailingService {
 
-    //TODO: add email and app password here
-    final static private String user = "";
+    final static private String user = "onepassprojectds@gmail.com";
     final static private String pass = "";
     private String emailAddr;
     private String subject;
     private String messageBody;
 
     
-    MailingService(String emailAddr, String subject, String messageBody) {
+    public MailingService(String emailAddr, String subject, String messageBody) {
         this.emailAddr = emailAddr;
         this.subject = subject;
         this.messageBody = messageBody;
     }
 
 
-    protected void sendMail() {
+    public void sendMail() {
         // set properties for sending emails
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");

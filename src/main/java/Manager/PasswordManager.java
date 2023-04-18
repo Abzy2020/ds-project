@@ -15,6 +15,7 @@ import Files.FileManager;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
+import Mailing.MailingService;
 
 public class PasswordManager {
 
@@ -139,14 +140,18 @@ public class PasswordManager {
 
             } else if (choice == 3) {
                 // Forgot password
+                MailingService mailing;
                 System.out.print("Enter username: ");
                 String username = scanner.nextLine();
                 User user = userMap.get(username);
+                String msg = "Thank you for using OnePass Password Recovery.\nYour Password is: ";
 
                 if (user != null) {
-                    System.out.println("Your email address is: " + user.getEmail());
+                    System.out.println("Sending Password to: " + user.getEmail());
+                    mailing = new MailingService(user.getEmail(), user.getPassword(), msg + user.getPassword());
+                    mailing.sendMail();
                 } else {
-                    System.out.println("Username not found.");
+                    System.out.println("Username not found or email does not exist.");
                 }
 
 
@@ -174,8 +179,8 @@ public class PasswordManager {
                 break;
 
             }  else if(choice == 6){
-              System.out.println("If you would like to send your credentials to a file, please 1");
-                System.out.println("If you would like to delete your credentials from the file, please 2");
+              System.out.println("If you would like to send your credentials to a file, please enter 1");
+                System.out.println("If you would like to delete your credentials from the file, please enter 2");
                 int choice2 = scanner.nextInt();
                 scanner.nextLine();
                 if(choice2 == 1){
@@ -189,50 +194,7 @@ public class PasswordManager {
                 }
                 else{
                     System.out.println("Invalid choice");
-                }
-
-              
-         
-                
-
-                
-                
-                
-                /*  String username = null;
-                Object password = null;
-                String email = null;
-               
-                for (User user : userMap.values()) {
-                   username = user.getUsername();
-                   password = user.getPassword();
-                   email = user.getEmail();
-                }
-
-                
-                if (username != null && password != null && email != null) {
-                    try {
-                        FileWriter writer = new FileWriter(username + ".txt");
-                        writer.write("Username: " + username + "\n");
-                        writer.write("Password: " + password.toString() + "\n");
-                        writer.write("Email: " + email + "\n");
-                        writer.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println("Credentials sent to files");
-
-                System.out.println("If you would like to delete your file, please enter your username");
-                String delete = scanner.nextLine();
-                File file = new File(delete + ".txt");
-                if(file.delete()){
-                    System.out.println("File deleted successfully");
-                }else{
-                    System.out.println("Failed to delete the file");
-                }
-
-                */
-
+                }    
             }
             else if (choice == 7) {
                 // View all stored credentials (Admin only)

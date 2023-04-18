@@ -30,7 +30,7 @@ public class UserValidator{
         Node left;
         Node right;
 
-        Node (char value) {
+        public Node (char value) {
             this.value = value;
             left = null;
             right = null;
