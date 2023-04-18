@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -37,7 +36,6 @@ public class UserSort {
 
         System.out.println("\n");
         for(User user :sortedMap.values()) {
-            
             System.out.println(user.getUserInfo());
             System.out.println("\n");
         }
