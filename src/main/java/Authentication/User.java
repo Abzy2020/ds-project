@@ -12,6 +12,7 @@ public class User {
         this.email = email;
     }
 
+
     // getters and setters
     public String getUserInfo(){
         return "Username: " + username + "\nPassword: " + password.getPassword() + "\nEmail: " + email.getEmail();

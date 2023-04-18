@@ -12,6 +12,7 @@ import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
 import Files.FileManager;
+import Files.UserSort;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
@@ -36,6 +37,7 @@ public class PasswordManager {
             System.out.println("5. Quit");
             System.out.println("6. Send credentials to files or delete them");
             System.out.println("7. View all stored credentials (Admin only)");
+            System.out.println("8. Sort credentials by username (Admin only)");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
@@ -215,7 +217,19 @@ public class PasswordManager {
                     System.out.println("Incorrect admin password.");
                 }
 
-            } else {
+            } else if (choice == 8) {
+            System.out.println("If you would like to sort the credentials by username, please enter 1");
+            int choice2 = scanner.nextInt();
+            if(choice2 == 1){
+                UserSort.sortUser(userMap);
+            }
+            else{
+                System.out.println("Invalid choice");
+            }
+            }
+            
+            
+            else {
                 System.out.println("Invalid choice. Please try again.");
             }
         }
