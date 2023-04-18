@@ -35,10 +35,13 @@ public class UserSort {
         
         // Print the sorted entries 
 
-        
+        System.out.println("\n");
         for(User user :sortedMap.values()) {
+            
             System.out.println(user.getUserInfo());
+            System.out.println("\n");
         }
+        
     }  
 
 

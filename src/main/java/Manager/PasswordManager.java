@@ -218,7 +218,10 @@ public class PasswordManager {
                 }
 
             } else if (choice == 8) {
-            System.out.println("If you would like to sort the credentials by username, please enter 1");
+                System.out.print("Enter admin password: ");
+                String adminPassword = scanner.nextLine();
+            if(adminPassword.equals("King")){
+                System.out.println("If you would like to sort the credentials by username, please enter 1");
             int choice2 = scanner.nextInt();
             if(choice2 == 1){
                 UserSort.sortUser(userMap);
@@ -226,7 +229,9 @@ public class PasswordManager {
             else{
                 System.out.println("Invalid choice");
             }
+
             }
+        }
             
             
             else {
