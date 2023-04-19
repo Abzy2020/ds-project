@@ -105,13 +105,17 @@ public class UserValidator{
             userPassword.setStrength("Weak");
         } else if (score > 2 && score <= 4){
             userPassword.setStrength("Medium");
-        } userPassword.setStrength("Strong");
+        } else {
+            userPassword.setStrength("Strong");
+        }
     }
 
     public static void main(String[] args) {
-        Password password = new Password("password");
+        Password password = new Password("222222222222");
         Email email = new Email("email");
         User user = new User("username", password, email);
         UserValidator validator = new UserValidator(user);
+        validator.setPassStrength();
+        System.out.println(validator.userPassword.getStrength());
     }
 }
