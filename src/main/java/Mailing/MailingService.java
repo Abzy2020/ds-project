@@ -13,7 +13,7 @@ import javax.mail.PasswordAuthentication;
 public class MailingService {
 
     final static private String user = "onepassprojectds@gmail.com";
-    final static private String pass = "gjzpqtejtkvaingf";
+    final static private String pass = "";
     private String emailAddr;
     private String subject;
     private String messageBody;
