@@ -134,8 +134,11 @@ public class PasswordManager {
                 System.out.println("Your new password is: " + password);
 
                 User newUser = new User(username, new Password(password), new Email(email));
+                UserValidator userValidator = new UserValidator(newUser);
+                userValidator.setPassStrength();
                 userMap.put(username, newUser);
 
+                System.out.println("Your new credentials are: " + newUser.getUserPassword().getStrength());
                 System.out.println("Account created successfully! You can now log in with your new credentials.");
                 System.out.println("Make sure to remember your password or else you may have to restart the process.");
 
