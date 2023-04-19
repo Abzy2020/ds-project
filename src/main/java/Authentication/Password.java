@@ -1,6 +1,6 @@
 package Authentication;
 
-public class Password {
+public class Password{
     private String password;
     private String strength;
 

@@ -11,6 +11,7 @@ import java.util.logging.FileHandler;
 import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
+import Authentication.UserValidator;
 import Files.FileManager;
 import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
