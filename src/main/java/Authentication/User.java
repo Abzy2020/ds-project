@@ -1,6 +1,6 @@
 package Authentication;
 
-public class User {
+public class User{
 
     private String username;
     private Password password;
@@ -11,6 +11,7 @@ public class User {
         this.password = password;
         this.email = email;
     }
+
 
     // getters and setters
     public String getUserInfo(){
