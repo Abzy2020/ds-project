@@ -1,12 +1,9 @@
 package Manager;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
 import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
@@ -17,6 +14,7 @@ import Generators.EmailGenerator;
 import Generators.PasswordGenerator;
 import Generators.UsernameGenerator;
 import Mailing.MailingService;
+import javax.mail.MessagingException;
 
 public class PasswordManager {
 
@@ -25,6 +23,13 @@ public class PasswordManager {
         HashMap<String, User> userMap = new HashMap<>();
         HashSet<String> usernameSet = new HashSet<>();
         HashSet<String> emailSet = new HashSet<>();
+        String username;
+        String password;
+        String adminPassword;
+        int choice;
+        int usernameChoice;
+        int emailChoice;
+        int passwordChoice;
 
         System.out.println("Welcome to OnePass!");
 
@@ -39,16 +44,15 @@ public class PasswordManager {
             System.out.println("7. View all stored credentials (Admin only)");
             System.out.println("8. Sort credentials by username (Admin only)");
 
-            int choice = scanner.nextInt();
+            choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
 
+            // LOG IN
             if (choice == 1) {
-                // Log in
                 System.out.print("Enter username: ");
-                String username = scanner.nextLine();
+                username = scanner.nextLine();
                 System.out.print("Enter password: ");
-                String password = scanner.nextLine();
-
+                password = scanner.nextLine();
                 
                 User user = userMap.get(username);
                 if (user != null && user.getPassword().equals(password)) {
@@ -57,16 +61,14 @@ public class PasswordManager {
                 } else {
                     System.out.println("Invalid username or password.");
                 }
-
-            } else if (choice == 2) {
-                // Sign up
-
+            } 
+            // SIGN UP
+            else if (choice == 2) {
                 // Username
                 System.out.println("Do you want to use a custom username or generate a random one?");
                 System.out.println("1. Custom username");
                 System.out.println("2. Random username");
-                String username;
-                int usernameChoice = scanner.nextInt();
+                usernameChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
 
                 if (usernameChoice == 1) {
@@ -93,7 +95,7 @@ public class PasswordManager {
                 System.out.println("1. Custom email");
                 System.out.println("2. Random email");
                 String email;
-                int emailChoice = scanner.nextInt();
+                emailChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
 
                 if (emailChoice == 1) {
@@ -114,15 +116,12 @@ public class PasswordManager {
                 }
                 emailSet.add(email);
                 System.out.println("Your new email is: " + email);
-
                 // Password
                 System.out.println("Do you want to use a custom password or generate a random one?");
                 System.out.println("1. Custom password");
                 System.out.println("2. Random password");
-                String password;
-                int passwordChoice = scanner.nextInt();
+                passwordChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
-
                 if (passwordChoice == 1) {
                     System.out.print("Enter a new password: ");
                     password = scanner.nextLine();
@@ -143,47 +142,51 @@ public class PasswordManager {
                 System.out.println("Account created successfully! You can now log in with your new credentials.");
                 System.out.println("Make sure to remember your password or else you may have to restart the process.");
 
-            } else if (choice == 3) {
-                // Forgot password
+            } 
+            // FORGOT PASSWORD
+            else if (choice == 3) {
                 MailingService mailing;
                 System.out.print("Enter username: ");
-                String username = scanner.nextLine();
+                username = scanner.nextLine();
                 User user = userMap.get(username);
                 String msg = "Thank you for using OnePass Password Recovery.\nYour Password is: ";
 
                 if (user != null) {
                     System.out.println("Sending Password to: " + user.getEmail());
                     mailing = new MailingService(user.getEmail(), user.getPassword(), msg + user.getPassword());
-                    mailing.sendMail();
+                    try{
+                        mailing.sendMail();
+                    } catch (Exception e){
+                        System.out.println("Feature not available at this time.");
+                    }
                 } else {
                     System.out.println("Username not found or email does not exist.");
                 }
-
-
-            } else if (choice == 4) {
-                // Forgot username
+            } 
+            // FORGOT USERNAME
+            else if (choice == 4) {
                 System.out.print("Enter email: ");
                 String email = scanner.nextLine();
-                String username = null;
-
+                username = null;
                 for (User user : userMap.values()) {
                     if (user.getEmail().equals(email)) {
                         username = user.getUsername();
                         break;
                     }
                 }
-
                 if (username != null) {
                     System.out.println("Your username is: " + username);
                 } else {
                     System.out.println("Email not found.");
                 }
-
-
-            } else if (choice == 5) {
+                
+            }
+            // QUIT
+            else if (choice == 5) {
                 break;
-
-            }  else if(choice == 6){
+            }
+            // SEND CREDENTIALS TO FILE
+            else if(choice == 6){
               System.out.println("If you would like to send your credentials to a file, please enter 1");
                 System.out.println("If you would like to delete your credentials from the file, please enter 2");
                 int choice2 = scanner.nextInt();
@@ -201,10 +204,10 @@ public class PasswordManager {
                     System.out.println("Invalid choice");
                 }    
             }
+            // VIEW ALL STORED CREDENTIALS (ADMIN ONLY)
             else if (choice == 7) {
-                // View all stored credentials (Admin only)
                 System.out.print("Enter admin password: ");
-                String adminPassword = scanner.nextLine();
+                adminPassword = scanner.nextLine();
                 System.out.println("-----------------------------------------------------------------------------------------------------------------");
 
                 if (adminPassword.equals("King")) {
@@ -219,19 +222,17 @@ public class PasswordManager {
                 } else {
                     System.out.println("Incorrect admin password.");
                 }
-
-            } else if (choice == 8) {
+            }
+            // SORT CREDENTIALS BY STRENGTH (ADMIN ONLY)
+            else if (choice == 8) {
                 System.out.print("Enter admin password: ");
-                String adminPassword = scanner.nextLine();
+                adminPassword = scanner.nextLine();
             if(adminPassword.equals("King")){
                         
                 UserSort.sortUser(userMap);
-            
-
             }
         }
-            
-            
+        // INVALID CHOICE
             else {
                 System.out.println("Invalid choice. Please try again.");
             }

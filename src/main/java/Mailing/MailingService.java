@@ -55,7 +55,7 @@ public class MailingService {
             Transport.send(message);
             System.out.println("Message has been sent");
         } catch (MessagingException e) {
-            e.printStackTrace();
+            System.out.println("Feature not available");
         }
     }
 }
