@@ -225,14 +225,9 @@ public class PasswordManager {
                 System.out.print("Enter admin password: ");
                 String adminPassword = scanner.nextLine();
             if(adminPassword.equals("King")){
-                System.out.println("If you would like to sort the credentials by username, please enter 1");
-            int choice2 = scanner.nextInt();
-            if(choice2 == 1){
+                        
                 UserSort.sortUser(userMap);
-            }
-            else{
-                System.out.println("Invalid choice");
-            }
+            
 
             }
         }
