@@ -70,17 +70,25 @@ public class UserValidator{
         //test password length
         if(password.length() >= 8){
             isEightChars = true;
+            tests[0] = true;
         }
         //test for upper and lower case, digit, and special
         for(int i = 0; i < password.length(); i++){
             if(Character.isUpperCase(password.charAt(i))){
                 containsUpper = true;
-            } else if(!Character.isUpperCase(password.charAt(i)) && Character.isLetter(password.charAt(i))){
+                tests[2] = true;
+            } 
+            if(!(Character.isUpperCase(password.charAt(i))) && Character.isLetter(password.charAt(i))){
                 containsLower = true;
-            } else if(Character.isDigit(password.charAt(i))){
+                tests[1] = true;
+            } 
+            if(Character.isDigit(password.charAt(i))){
                 containsNum = true;
-            } else if (!Character.isLetterOrDigit(password.charAt(i))){
+                tests[3] = true;
+            } 
+            if (!(Character.isLetterOrDigit(password.charAt(i)))){
                 containsSpecial = true;
+                tests[4] = true;
             }
         }
         //count score
@@ -101,6 +109,7 @@ public class UserValidator{
         }
         inorderTraversal(root);
         score = testStrength(tempPass);
+        System.out.println(score);
         if (score <= 2){
             userPassword.setStrength("Weak");
         } else if (score > 2 && score <= 4){
@@ -110,12 +119,14 @@ public class UserValidator{
         }
     }
 
+    // testing password strength checker works
     public static void main(String[] args) {
-        Password password = new Password("222222222222");
+        Password password = new Password("TyB!Jghh^ap1");
         Email email = new Email("email");
         User user = new User("username", password, email);
         UserValidator validator = new UserValidator(user);
         validator.setPassStrength();
+        System.out.println(validator.tempPass);
         System.out.println(validator.userPassword.getStrength());
     }
 }
