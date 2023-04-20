@@ -44,13 +44,12 @@ public class FileManager {
                     }
                 }
                 System.out.println("Credentials sent to file");
-            } catch (IOException e) {
-                System.err.println("Error writing credentials to file: " + e.getMessage());
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading credentials from file: " + e.getMessage());
-        }
+            } 
         TimeComplexity.endFunction();
+        } catch (IOException e) {
+            System.err.println("Error writing credentials to file: " + e.getMessage());
+        }
+        
     }
     
     public static void deleteCredentialsByUsernameAndPassword(String username, String password) {

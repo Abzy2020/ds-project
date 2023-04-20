@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
-
 import Authentication.Email;
 import Authentication.Password;
 import Authentication.User;
@@ -92,7 +91,7 @@ public class PasswordManager {
                 // Email
                 System.out.println("Do you want to use a custom email or generate a random one?");
                 System.out.println("1. Custom email");
-                System.out.println("2. Use username");
+                System.out.println("2. Random email");
                 String email;
                 int emailChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
@@ -225,14 +224,9 @@ public class PasswordManager {
                 System.out.print("Enter admin password: ");
                 String adminPassword = scanner.nextLine();
             if(adminPassword.equals("King")){
-                System.out.println("If you would like to sort the credentials by username, please enter 1");
-            int choice2 = scanner.nextInt();
-            if(choice2 == 1){
+                        
                 UserSort.sortUser(userMap);
-            }
-            else{
-                System.out.println("Invalid choice");
-            }
+            
 
             }
         }
