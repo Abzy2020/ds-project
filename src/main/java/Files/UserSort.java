@@ -28,9 +28,7 @@ public class UserSort {
                     sortedMap.put(username, user);
                 }
             }
-        } catch (IOException e) {
-            System.err.println("Error reading credentials from file: " + e.getMessage());
-        }
+        } 
         
         // Print the sorted entries 
 
