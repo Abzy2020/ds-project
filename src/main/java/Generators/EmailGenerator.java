@@ -16,7 +16,7 @@ public class EmailGenerator {
         }
 
         String domain = DOMAINS[random.nextInt(DOMAINS.length)];
-        return localPart.toString() + "@" + domain;
+        return username + "@" + domain;
     }
 } 
 

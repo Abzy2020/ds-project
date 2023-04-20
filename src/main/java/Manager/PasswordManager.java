@@ -92,7 +92,7 @@ public class PasswordManager {
                 // Email
                 System.out.println("Do you want to use a custom email or generate a random one?");
                 System.out.println("1. Custom email");
-                System.out.println("2. Random email");
+                System.out.println("2. Use username");
                 String email;
                 int emailChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
