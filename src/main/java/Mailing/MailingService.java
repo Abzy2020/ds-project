@@ -12,6 +12,8 @@ import javax.mail.PasswordAuthentication;
 
 public class MailingService {
 
+    // Ideally would send a password email
+    // Password removed for security reasons
     final static private String user = "onepassprojectds@gmail.com";
     final static private String pass = "";
     private String emailAddr;

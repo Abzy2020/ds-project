@@ -1,5 +1,6 @@
 package Authentication;
 
+//Classifies a user's password as strong, medium, or weak
 public class UserValidator{
 
     private String username;
@@ -24,9 +25,9 @@ public class UserValidator{
         this.tempPass = "";
     }
 
-
+    // node for each character of password
     public class Node {
-        char value; // for characters of password
+        char value;
         Node left;
         Node right;
 
@@ -38,6 +39,7 @@ public class UserValidator{
     }
 
 
+    // adds node to tree
     public Node addNode(Node node, char value) {
         if (node == null) {
             return new Node(value);
@@ -53,7 +55,7 @@ public class UserValidator{
         return node;
     }
 
-
+    // traverses the tree inorder
     public void inorderTraversal(Node node) {
         if (node != null) {
             inorderTraversal(node.left);
@@ -64,6 +66,12 @@ public class UserValidator{
 
 
     // tests password for strength
+    // Logic:
+    // A tree was used to remove duplicate characters from the password
+    // 1. Pass must have eight unique characters
+    // 2. Pass must contain at least one upper and lower case letter
+    // 3. Pass must contain at least one digit
+    // 4. Pass must contain at least one special character
     public int testStrength(String password){
         boolean[] tests = {isEightChars, containsLower, containsUpper, containsNum, containsSpecial};
         int score = 0;

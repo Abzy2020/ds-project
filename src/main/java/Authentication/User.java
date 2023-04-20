@@ -13,23 +13,27 @@ public class User{
     }
 
 
-    // getters and setters
+    // returns all user info as string
     public String getUserInfo(){
         return "Username: " + username + "\nPassword: " + password.getPassword() + "\nEmail: " + email.getEmail();
     }
 
+    // returns username as string
     public String getUsername() {
         return username;
     }
 
+    // returns password as string
     public String getPassword() {
         return password.getPassword();
     }
 
+    // returns the password object
     public Password getUserPassword(){
         return password;
     }
 
+    // returns email as string
     public String getEmail() {
         return email.getEmail();
     }
